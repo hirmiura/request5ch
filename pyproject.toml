@@ -5,6 +5,7 @@ description = "5chのスレに投稿/取得する為の簡易パッケージ"
 authors = [ "Hiroshi Miura <hirmiura@gmail.com>" ]
 readme = "README.md"
 homepage = "https://github.com/hirmiura/request5ch"
+repository = "https://github.com/hirmiura/request5ch"
 license = "MIT"
 classifiers = [
     "Development Status :: 3 - Alpha",
