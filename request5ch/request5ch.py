@@ -62,7 +62,8 @@ class Request5ch:
             "accept-encoding": ACCEPT_ENCODING,
             "content-type": "application/x-www-form-urlencoded",
             "origin": url.server_url,
-            "connection": "close",
+            "connection": "keep-alive",
+            "keep-alive": "timeout=330, max=512",
             "referer": url.thread_url,
         }
         return headers
@@ -96,7 +97,8 @@ class Request5ch:
             "accept": ACCEPT,
             "accept-language": ACCEPT_LANGUAGE,
             "accept-encoding": ACCEPT_ENCODING,
-            "connection": "close",
+            "connection": "keep-alive",
+            "keep-alive": "timeout=330, max=512",
         }
         return headers
 
