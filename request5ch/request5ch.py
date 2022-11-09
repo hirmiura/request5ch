@@ -20,6 +20,8 @@ ACCEPT_ENCODING = "gzip, deflate, br"
 
 
 class Request5ch:
+    TIMEOUT = (6.0, 6.0)
+
     def __init__(self, url: Optional[str] = None) -> None:
         self.url = URL5ch.parse(url) if url else None
 
@@ -81,7 +83,9 @@ class Request5ch:
         headers = self._create_header_for_post()
         cookies = self._create_cookie_for_post()
         logger.debug("スレ({0}/{1}/{2})に投稿しています".format(url.domain_host, url.bbs, url.tid))
-        r = requests.post(url.bbs_cgi_url, data=data, headers=headers, cookies=cookies)
+        r = requests.post(
+            url.bbs_cgi_url, data=data, headers=headers, cookies=cookies, timeout=Request5ch.TIMEOUT
+        )
         logger.debug("スレ({0}/{1}/{2})に投稿しました".format(url.domain_host, url.bbs, url.tid))
         r.encoding = SJIS
         return r
@@ -102,7 +106,7 @@ class Request5ch:
         url = self.url
         headers = self._create_header_for_get()
         logger.debug("subject.txtを取得しています")
-        r = requests.get(url.subject_txt_url, headers=headers)
+        r = requests.get(url.subject_txt_url, headers=headers, timeout=Request5ch.TIMEOUT)
         logger.debug("subject.txtを取得しました")
         r.encoding = SJIS
         sbj = None
@@ -119,7 +123,7 @@ class Request5ch:
         requrl = url.thread_url + addition
         headers = self._create_header_for_get()
         logger.debug("スレ({0}/{1}/{2})を取得しています".format(url.domain_host, url.bbs, url.tid))
-        r = requests.get(requrl, headers=headers)
+        r = requests.get(requrl, headers=headers, timeout=Request5ch.TIMEOUT)
         logger.debug("スレ({0}/{1}/{2})を取得しました".format(url.domain_host, url.bbs, url.tid))
         r.encoding = SJIS
         return r
