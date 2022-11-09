@@ -96,7 +96,7 @@ class Request5ch:
         }
         return headers
 
-    def get_subject(self) -> Optional[Subject5ch]:
+    def get_subject(self) -> tuple[Optional[Subject5ch], requests.Response]:
         """subject.txtを取得してSubject5chオブジェクトにして返す"""
         assert self.url
         url = self.url
@@ -109,7 +109,7 @@ class Request5ch:
         if r.ok:
             sbj = Subject5ch.parse(r.text)
             sbj.url = url.subject_txt_url
-        return sbj
+        return sbj, r
 
     def get_thread(self, addition: str = "") -> requests.Response:
         """スレを取得する"""
